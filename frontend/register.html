@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Trading Journal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="icon.css">
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
+            padding: 20px;
+        }
+        .auth-card {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid var(--border-color);
+        }
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .auth-header .icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .auth-header h1 {
+            font-size: 1.75rem;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+        .auth-header p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+        .auth-card .form-group {
+            margin-bottom: 20px;
+        }
+        .auth-card .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .auth-card .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+        }
+        .auth-card .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .password-wrapper input {
+            width: 100%;
+            padding-right: 45px;
+        }
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        .password-toggle:hover {
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        .btn-block {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1rem;
+        }
+        .auth-error {
+            background: rgba(247, 37, 133, 0.1);
+            border: 1px solid var(--danger-color);
+            color: var(--danger-color);
+            padding: 10px 15px;
+            border-radius: var(--radius-md);
+            margin-top: 15px;
+            display: none;
+        }
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .auth-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+        .password-requirements {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+            padding-left: 5px;
+        }
+        .password-requirements li {
+            list-style: none;
+            padding: 2px 0;
+        }
+        .password-requirements .valid {
+            color: var(--success-color);
+        }
+        .password-requirements .invalid {
+            color: var(--danger-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <span class="icon icon-chart-line"></span>
+                <h1>Create Account</h1>
+                <p>Start tracking your trades today</p>
+            </div>
+            
+            <form id="registerForm" autocomplete="off">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="trader_john" required 
+                           autocomplete="off" value="" readonly onfocus="this.removeAttribute('readonly')">
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="John Trader" 
+                           autocomplete="off" value="" readonly onfocus="this.removeAttribute('readonly')">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="your@email.com" required 
+                           autocomplete="off" value="" readonly onfocus="this.removeAttribute('readonly')">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" placeholder="Create a strong password" required 
+                               autocomplete="new-password" value="" readonly onfocus="this.removeAttribute('readonly')">
+                        <button type="button" class="password-toggle" id="togglePassword">👁️</button>
+                    </div>
+                    <ul class="password-requirements" id="passwordRequirements">
+                        <li id="reqLength">❌ At least 6 characters</li>
+                        <li id="reqUppercase">❌ At least one uppercase letter</li>
+                        <li id="reqLowercase">❌ At least one lowercase letter</li>
+                        <li id="reqNumber">❌ At least one number</li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="confirmPassword" placeholder="Confirm your password" required 
+                               autocomplete="new-password" value="" readonly onfocus="this.removeAttribute('readonly')">
+                        <button type="button" class="password-toggle" id="toggleConfirmPassword">👁️</button>
+                    </div>
+                    <div id="passwordMatch" class="password-requirements"></div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" id="registerBtn">
+                    <span class="icon icon-check-circle"></span> Create Account
+                </button>
+            </form>
+            
+            <div id="errorMessage" class="auth-error"></div>
+            
+            <div class="auth-footer">
+                Already have an account? <a href="/login.html">Sign in</a>
+            </div>
+        </div>
+    </div>
+    <script src="api.js"></script>
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const input = document.getElementById('password');
+            input.type = input.type === 'password' ? 'text' : 'password';
+            this.textContent = input.type === 'password' ? '👁️' : '🙈';
+        });
+
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+            const input = document.getElementById('confirmPassword');
+            input.type = input.type === 'password' ? 'text' : 'password';
+            this.textContent = input.type === 'password' ? '👁️' : '🙈';
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            ['username', 'fullName', 'email', 'password', 'confirmPassword'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+        });
+        const passwordInput = document.getElementById('password');
+        const confirmInput = document.getElementById('confirmPassword');
+
+        function validatePassword() {
+            const password = passwordInput.value;
+            const requirements = {
+                length: password.length >= 6,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                number: /\d/.test(password)
+            };
+            
+            document.getElementById('reqLength').textContent = 
+                (requirements.length ? '✅' : '❌') + ' At least 6 characters';
+            document.getElementById('reqLength').className = requirements.length ? 'valid' : 'invalid';
+            document.getElementById('reqUppercase').textContent = 
+                (requirements.uppercase ? '✅' : '❌') + ' At least one uppercase letter';
+            document.getElementById('reqUppercase').className = requirements.uppercase ? 'valid' : 'invalid';
+            document.getElementById('reqLowercase').textContent = 
+                (requirements.lowercase ? '✅' : '❌') + ' At least one lowercase letter';
+            document.getElementById('reqLowercase').className = requirements.lowercase ? 'valid' : 'invalid';
+            document.getElementById('reqNumber').textContent = 
+                (requirements.number ? '✅' : '❌') + ' At least one number';
+            document.getElementById('reqNumber').className = requirements.number ? 'valid' : 'invalid';
+            
+            return requirements.length && requirements.uppercase && requirements.lowercase && requirements.number;
+        }
+
+        function checkPasswordMatch() {
+            const matchDiv = document.getElementById('passwordMatch');
+            const password = passwordInput.value;
+            const confirm = confirmInput.value;
+            
+            if (confirm.length === 0) {
+                matchDiv.textContent = '';
+                return;
+            }
+            
+            if (password === confirm) {
+                matchDiv.textContent = '✅ Passwords match';
+                matchDiv.className = 'password-requirements valid';
+            } else {
+                matchDiv.textContent = '❌ Passwords do not match';
+                matchDiv.className = 'password-requirements invalid';
+            }
+        }
+
+        passwordInput.addEventListener('input', function() {
+            validatePassword();
+            checkPasswordMatch();
+        });
+        confirmInput.addEventListener('input', checkPasswordMatch);
+
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = passwordInput.value;
+            const confirmPassword = confirmInput.value;
+            
+            const errorDiv = document.getElementById('errorMessage');
+            const registerBtn = document.getElementById('registerBtn');
+            errorDiv.style.display = 'none';
+            
+            if (!username || username.length < 3) {
+                errorDiv.textContent = 'Username must be at least 3 characters';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            if (!email || !email.includes('@')) {
+                errorDiv.textContent = 'Please enter a valid email address';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            if (!validatePassword()) {
+                errorDiv.textContent = 'Please meet all password requirements';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            if (password !== confirmPassword) {
+                errorDiv.textContent = 'Passwords do not match';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            registerBtn.disabled = true;
+            registerBtn.innerHTML = '<span class="icon icon-spinner"></span> Creating account...';
+            
+            try {
+                const response = await API.register({ username, email, password, fullName: fullName || username });
+                if (response.success) {
+                    window.location.href = '/';
+                } else {
+                    errorDiv.textContent = response.message || 'Registration failed. Please try again.';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = error.message || 'Connection error. Please try again.';
+                errorDiv.style.display = 'block';
+            } finally {
+                registerBtn.disabled = false;
+                registerBtn.innerHTML = '<span class="icon icon-check-circle"></span> Create Account';
+            }
+        });
+
+        if (API.isAuthenticated()) {
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>
