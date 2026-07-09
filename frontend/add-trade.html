@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Journal | Add Trade</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="icon.css">
+    <script src="api.js"></script>
+    <script src="add-trade.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="icon icon-chart-line"></span>
+                <span>TradingJournal</span>
+            </a>
+          <div class="nav-links">
+    <a href="index.html" class="nav-link">
+        <span class="icon icon-dashboard"></span>
+        <span>Dashboard</span>
+    </a>
+    <a href="trades.html" class="nav-link">
+        <span class="icon icon-history"></span>
+        <span>Trade History</span>
+    </a>
+    <a href="add-trade.html" class="nav-link active">
+        <span class="icon icon-plus-circle"></span>
+        <span>Add Trade</span>
+    </a>
+    <button class="btn btn-secondary" id="logoutBtn" style="margin-left: auto; padding: 6px 14px; font-size: 0.85rem; border-radius: 8px;">
+        <span class="icon icon-times"></span> Logout
+    </button>
+    <button class="theme-toggle" id="themeToggle" style="margin-left: 8px;">
+        <span class="icon icon-moon"></span>
+    </button>
+</div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span class="icon icon-bars"></span>
+            </button>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title">Add New Trade</h1>
+            <p class="page-subtitle">Record your trading activity for analysis and improvement</p>
+        </div>
+    </header>
+
+    <main id="main-content" class="container">
+        <div class="form-container">
+            <div class="success-message" id="successMessage" style="display: none;">
+                <span class="icon icon-check-circle"></span>
+                <div>
+                    <h3>Trade Saved Successfully!</h3>
+                    <p>Your trade has been recorded. <a href="trades.html">View all trades</a></p>
+                </div>
+            </div>
+            
+            <form id="tradeForm" class="trade-form">
+                <input type="hidden" id="tradeId" value="">
+                
+                <div class="form-section">
+                    <div class="section-header">
+                        <span class="icon icon-info-circle"></span>
+                        <h2>Trade Details</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="tradeDate"><span class="icon icon-calendar"></span> Trade Date *</label>
+                            <input type="date" id="tradeDate" name="tradeDate" required>
+                            <div class="error-message" id="dateError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="asset"><span class="icon icon-chart-line"></span> Asset/Symbol *</label>
+                            <input type="text" id="asset" name="asset" placeholder="AAPL, BTC, etc." required>
+                            <div class="error-message" id="assetError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tradeType"><span class="icon icon-exchange-alt"></span> Trade Type *</label>
+                            <select id="tradeType" name="tradeType" required>
+                                <option value="">Select type</option>
+                                <option value="long">Long (Buy)</option>
+                                <option value="short">Short (Sell)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity"><span class="icon icon-boxes"></span> Quantity *</label>
+                            <input type="number" id="quantity" name="quantity" min="0.001" step="0.001" required>
+                            <div class="error-message" id="quantityError"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-header">
+                        <span class="icon icon-wallet"></span>
+                        <h2>Price Information</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="entryPrice"><span class="icon icon-arrow-down"></span> Entry Price *</label>
+                            <input type="number" id="entryPrice" name="entryPrice" min="0" step="0.01" required>
+                            <div class="error-message" id="entryError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exitPrice"><span class="icon icon-arrow-up"></span> Exit Price *</label>
+                            <input type="number" id="exitPrice" name="exitPrice" min="0" step="0.01" required>
+                            <div class="error-message" id="exitError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="stopLoss"><span class="icon icon-shield"></span> Stop Loss</label>
+                            <input type="number" id="stopLoss" name="stopLoss" min="0" step="0.01">
+                            <small>Optional - Risk management</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="takeProfit"><span class="icon icon-bullseye"></span> Take Profit</label>
+                            <input type="number" id="takeProfit" name="takeProfit" min="0" step="0.01">
+                            <small>Optional - Profit target</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="fees"><span class="icon icon-receipt"></span> Fees/Commission</label>
+                            <input type="number" id="fees" name="fees" min="0" step="0.01" value="0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-header">
+                        <span class="icon icon-camera"></span>
+                        <h2>Trade Screenshots</h2>
+                    </div>
+                    <div class="screenshot-upload">
+                        <div class="upload-area" id="uploadArea">
+                            <span class="icon icon-cloud-upload-alt"></span>
+                            <h3>Upload Trade Screenshots</h3>
+                            <p>Drag & drop screenshots or click to browse</p>
+                            <p class="upload-hint">Supported formats: JPG, PNG, GIF (Max 5MB each)</p>
+                            <input type="file" id="screenshotInput" accept="image/*" multiple style="display: none;">
+                            <button type="button" class="btn btn-secondary" id="browseBtn">
+                                <span class="icon icon-folder-open"></span> Browse Files
+                            </button>
+                        </div>
+                        <div class="screenshot-preview" id="screenshotPreview"></div>
+                        <div class="screenshot-notes">
+                            <label for="screenshotNotes"><span class="icon icon-sticky-note"></span> Screenshot Notes</label>
+                            <textarea id="screenshotNotes" name="screenshotNotes" rows="2" 
+                                      placeholder="Notes about your screenshots (optional)"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-header">
+                        <span class="icon icon-brain"></span>
+                        <h2>Strategy & Psychology</h2>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="strategy"><span class="icon icon-chess"></span> Trading Strategy</label>
+                            <select id="strategy" name="strategy">
+                                <option value="">Select strategy</option>
+                                <option value="swing">Swing Trading</option>
+                                <option value="day">Day Trading</option>
+                                <option value="scalp">Scalping</option>
+                                <option value="position">Position Trading</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="emotion"><span class="icon icon-smile"></span> Emotional State</label>
+                            <select id="emotion" name="emotion">
+                                <option value="">How did you feel?</option>
+                                <option value="confident">Confident</option>
+                                <option value="neutral">Neutral</option>
+                                <option value="anxious">Anxious</option>
+                                <option value="fearful">Fearful</option>
+                                <option value="greedy">Greedy</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="setup"><span class="icon icon-lightbulb"></span> Trade Setup / Rationale</label>
+                        <textarea id="setup" name="setup" rows="3" placeholder="Why did you take this trade? What was your reasoning?"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes"><span class="icon icon-sticky-note"></span> Notes / Lessons Learned</label>
+                        <textarea id="notes" name="notes" rows="3" placeholder="What worked well? What would you do differently next time?"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-header">
+                        <span class="icon icon-chart-line"></span>
+                        <h2>Profit/Loss Preview</h2>
+                    </div>
+                    <div class="profit-preview">
+                        <div class="profit-result">
+                            <div class="profit-label">Estimated P&L</div>
+                            <div class="profit-value" id="profitPreview">$0.00</div>
+                        </div>
+                        <div class="profit-details">
+                            <div class="profit-detail">
+                                <span>Risk/Reward Ratio:</span>
+                                <span id="riskRewardRatio">-</span>
+                            </div>
+                            <div class="profit-detail">
+                                <span>Return on Investment:</span>
+                                <span id="roi">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <span class="icon icon-check-circle"></span> Save Trade
+                    </button>
+                    <button type="reset" class="btn btn-outline">
+                        <span class="icon icon-times"></span> Clear Form
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="icon icon-chart-line footer-logo"></span>
+                    <div class="footer-info">
+                        <h3>TradingJournal</h3>
+                        <p>Your professional trading companion</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 TradingJournal. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
