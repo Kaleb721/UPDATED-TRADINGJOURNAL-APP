@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Journal | Trade History</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="icon.css">
+    <script src="api.js"></script>
+    <script src="trades.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="icon icon-chart-line"></span>
+                <span>TradingJournal</span>
+            </a>
+          <div class="nav-links">
+    <a href="index.html" class="nav-link">
+        <span class="icon icon-dashboard"></span>
+        <span>Dashboard</span>
+    </a>
+    <a href="trades.html" class="nav-link active">
+        <span class="icon icon-history"></span>
+        <span>Trade History</span>
+    </a>
+    <a href="add-trade.html" class="nav-link">
+        <span class="icon icon-plus-circle"></span>
+        <span>Add Trade</span>
+    </a>
+
+    <button class="btn btn-secondary" id="logoutBtn" style="margin-left: auto; padding: 6px 14px; font-size: 0.85rem; border-radius: 8px;">
+        <span class="icon icon-times"></span> Logout
+    </button>
+    <button class="theme-toggle" id="themeToggle" style="margin-left: 8px;">
+        <span class="icon icon-moon"></span>
+    </button>
+</div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span class="icon icon-bars"></span>
+            </button>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title">Trade History</h1>
+            <p class="page-subtitle">View, filter, and analyze all your recorded trades</p>
+        </div>
+    </header>
+
+    <main id="main-content" class="container">
+        <section class="section">
+            <div class="filter-card">
+                <div class="filter-header">
+                    <h3><span class="icon icon-filter"></span> Filter Trades</h3>
+                    <button class="btn btn-secondary" id="clearFilters">Clear All</button>
+                </div>
+                <div class="filter-body">
+                    <div class="filter-grid">
+                        <div class="filter-group">
+                            <label for="filterDateFrom">Date Range</label>
+                            <div class="date-range">
+                                <input type="date" id="filterDateFrom" class="date-input">
+                                <span class="date-separator">to</span>
+                                <input type="date" id="filterDateTo" class="date-input">
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterAsset">Asset</label>
+                            <select id="filterAsset" class="filter-select">
+                                <option value="all">All Assets</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterStatus">Status</label>
+                            <select id="filterStatus" class="filter-select">
+                                <option value="all">All Trades</option>
+                                <option value="win">Winning Trades</option>
+                                <option value="loss">Losing Trades</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filterType">Trade Type</label>
+                            <select id="filterType" class="filter-select">
+                                <option value="all">All Types</option>
+                                <option value="long">Long</option>
+                                <option value="short">Short</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter-actions">
+                        <button class="btn btn-primary" id="applyFilters">
+                            <span class="icon icon-search"></span> Apply Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="table-card">
+                <div class="table-header">
+                    <h3><span class="icon icon-table"></span> All Trades</h3>
+                    <div class="table-actions">
+                        <button class="btn btn-secondary" id="exportPDF">
+                            <span class="icon icon-file-pdf"></span> Export CSV
+                        </button>
+                        <span class="trade-count" id="tradeCount">0 trades</span>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="tradesTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Asset</th>
+                                <th>Type</th>
+                                <th>Entry</th>
+                                <th>Exit</th>
+                                <th>Quantity</th>
+                                <th>P&L</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tradesTableBody"></tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <div class="pagination">
+                        <button class="pagination-btn" id="prevPage" disabled>
+                            <span class="icon icon-chevron-left"></span> Previous
+                        </button>
+                        <span class="page-info" id="pageInfo">Page 1 of 1</span>
+                        <button class="pagination-btn" id="nextPage" disabled>
+                            Next <span class="icon icon-chevron-right"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="empty-icon">
+                    <span class="icon icon-chart-line"></span>
+                </div>
+                <h3>No trades found</h3>
+                <p>Start by adding your first trade!</p>
+                <a href="add-trade.html" class="btn btn-primary">
+                    <span class="icon icon-plus-circle"></span> Add Your First Trade
+                </a>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="summary-stats">
+                <div class="summary-stat">
+                    <div class="stat-icon">
+                        <span class="icon icon-chart-bar"></span>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="filteredProfit">$0.00</div>
+                        <div class="stat-label">Filtered P&L</div>
+                    </div>
+                </div>
+                <div class="summary-stat">
+                    <div class="stat-icon">
+                        <span class="icon icon-percentage"></span>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="filteredWinRate">0%</div>
+                        <div class="stat-label">Filtered Win Rate</div>
+                    </div>
+                </div>
+                <div class="summary-stat">
+                    <div class="stat-icon">
+                        <span class="icon icon-exchange-alt"></span>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="filteredTrades">0</div>
+                        <div class="stat-label">Trades Found</div>
+                    </div>
+                </div>
+                <div class="summary-stat">
+                    <div class="stat-icon">
+                        <span class="icon icon-clock"></span>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="avgFilteredProfit">$0.00</div>
+                        <div class="stat-label">Avg Profit/Trade</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="icon icon-chart-line footer-logo"></span>
+                    <div class="footer-info">
+                        <h3>TradingJournal</h3>
+                        <p>Your professional trading companion</p>
+                    </div>
+                </div>
+                <div class="footer-actions">
+                    <button class="btn btn-secondary" id="backupData">
+                        <span class="icon icon-database"></span> Backup Data
+                    </button>
+                    <button class="btn btn-outline" id="restoreData">
+                        <span class="icon icon-upload"></span> Restore Data
+                    </button>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 TradingJournal. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
