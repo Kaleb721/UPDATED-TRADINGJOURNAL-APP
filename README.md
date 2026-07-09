@@ -72,27 +72,93 @@ A full-stack trading journal application built with Node.js, Express, PostgreSQL
 ---
 
 ## 📁 Project Structure
+```
+TradingJournal/
+│
+├── README.md
+├── .gitignore
+│
+├── backend/
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── server.js
+│   ├── .env
+│   ├── test.js
+│   ├── test-db.js
+│   │
+│   ├── logs/
+│   │   ├── combined.log
+│   │   └── error.log
+│   │
+│   └── src/
+│       ├── app.js
+│       │
+│       ├── config/
+│       │   ├── auth.js
+│       │   ├── database.js
+│       │   └── logger.js
+│       │
+│       ├── controllers/
+│       │   ├── authController.js
+│       │   └── tradeController.js
+│       │
+│       ├── middleware/
+│       │   ├── auth.js
+│       │   ├── errorHandler.js
+│       │   └── validation.js
+│       │
+│       ├── models/
+│       │   ├── User.js
+│       │   └── Trade.js
+│       │
+│       ├── routes/
+│       │   ├── authRoutes.js
+│       │   └── tradeRoutes.js
+│       │
+│       └── utils/
+│
+├── frontend/
+│   ├── index.html
+│   ├── login.html
+│   ├── register.html
+│   ├── dashboard.html
+│   ├── trades.html
+│   ├── add-trade.html
+│   ├── css/
+│   ├── js/
+│   └── assets/
+│
+├── database/
+│   ├── schema.sql
+│   └── er-diagram.png
+│
+└── docs/
+    └── api-documentation.md
+```
+
+---
+
 # ⚙️ Installation
 
-## 1. Clone the Repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/Kaleb721/UPDATED-TRADINGJOURNAL-APP.git
 ```
 
-## 2. Navigate to the Backend
+### 2. Navigate to the backend
 
 ```bash
-cd TradingJournal/backend
+cd backend
 ```
 
-## 3. Install Dependencies
+### 3. Install dependencies
 
 ```bash
 npm install
 ```
 
-## 4. Configure Environment Variables
+### 4. Configure environment variables
 
 Create a `.env` file inside the backend folder.
 
@@ -109,9 +175,9 @@ JWT_SECRET=your_secret_key
 JWT_EXPIRES_IN=24h
 ```
 
-## 5. Create the Database
+### 5. Create the database
 
-Run the SQL script inside:
+Run the SQL script located in:
 
 ```
 database/schema.sql
@@ -119,50 +185,43 @@ database/schema.sql
 
 using PostgreSQL.
 
-## 6. Start the Backend
+### 6. Start the backend
 
-Development
+Development Mode
 
 ```bash
 npm run dev
 ```
 
-Production
+Production Mode
 
 ```bash
 npm start
 ```
 
-## 7. Open the Frontend
+### 7. Run the frontend
 
-Open
-
-```
-frontend/index.html
-```
-
-using Live Server or any local web server.
+Open the `frontend` folder using **Live Server** in Visual Studio Code or any local web server.
 
 ---
 
-# 🔐 Security Features
+# 🔒 Security Features
 
 - JWT Authentication
-- Password Hashing using bcrypt
+- Password Hashing with bcrypt
 - Protected API Routes
-- Input Validation
+- Express Validator
 - Rate Limiting
-- Helmet Security Headers
-- CORS Protection
-- Secure Password Storage
+- Helmet Security
+- CORS Configuration
+- Winston Logging
 - Error Handling Middleware
-- Request Logging using Winston
 
 ---
 
 # 🗄️ Database
 
-The project uses **PostgreSQL**.
+Database: PostgreSQL
 
 Database schema:
 
@@ -170,14 +229,14 @@ Database schema:
 database/schema.sql
 ```
 
-Main tables:
+Main Tables
 
 - Users
 - Trades
 
-Relationships:
+Relationship
 
-- One User → Many Trades
+- One User can have many Trades.
 
 ---
 
@@ -189,46 +248,31 @@ Relationships:
 |---------|----------|-------------|
 | POST | /api/auth/register | Register User |
 | POST | /api/auth/login | Login User |
-| GET | /api/auth/profile | User Profile |
+| GET | /api/auth/profile | Get User Profile |
 
 ## Trades
 
 | Method | Endpoint | Description |
 |---------|----------|-------------|
 | GET | /api/trades | Get All Trades |
-| GET | /api/trades/:id | Get Trade |
-| POST | /api/trades | Add Trade |
+| GET | /api/trades/:id | Get Single Trade |
+| POST | /api/trades | Create Trade |
 | PUT | /api/trades/:id | Update Trade |
 | DELETE | /api/trades/:id | Delete Trade |
 
 ---
 
-# 📊 Extra Features Beyond the Course
-
-This project includes several features beyond the course requirements:
+# ⭐ Extra Features
 
 - Dashboard Analytics
+- Win Rate Calculation
+- Risk / Reward Analysis
+- Performance Charts (Chart.js)
 - CSV Export
 - JSON Backup & Restore
-- Performance Charts
-- Screenshot Upload Support
-- Risk Management Metrics
-- Psychology Score Tracking
-- Dark / Light Theme
-- Mobile Responsive Design
-
----
-
-# 📸 Screenshots
-
-Add screenshots of:
-
-- Login Page
-- Register Page
-- Dashboard
-- Add Trade
-- Trade History
-- Analytics
+- Screenshot Uploads
+- Dark / Light Mode
+- Responsive Design
 
 ---
 
@@ -241,9 +285,3 @@ Web Programming II Final Project
 American College of Technology (ACT)
 
 2026
-
----
-
-# 📄 License
-
-This project was developed for educational purposes as the final project for the Web Programming II course.
