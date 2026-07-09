@@ -1586,3 +1586,37 @@
 [2026-07-08 20:40:07] info: GET /favicon.ico - ::1
 [2026-07-08 20:42:27] info: 🚀 Server running on http://localhost:5000
 [2026-07-08 20:42:27] info: ✅ PostgreSQL database connected successfully
+[2026-07-09 09:07:11] info: 🚀 Server running on http://localhost:5000
+[2026-07-09 09:07:11] info: ✅ PostgreSQL database connected successfully
+[2026-07-09 09:07:33] info: 🚀 Server running on http://localhost:5000
+[2026-07-09 09:07:33] info: ✅ PostgreSQL database connected successfully
+[2026-07-09 09:07:37] info: GET / - ::1
+[2026-07-09 09:07:38] info: GET /style.css - ::1
+[2026-07-09 09:07:38] info: GET /icon.css - ::1
+[2026-07-09 09:07:38] info: GET /app.js - ::1
+[2026-07-09 09:07:38] info: GET /api.js - ::1
+[2026-07-09 09:07:38] info: GET /login.html - ::1
+[2026-07-09 09:07:38] info: GET /style.css - ::1
+[2026-07-09 09:07:38] info: GET /icon.css - ::1
+[2026-07-09 09:07:38] info: GET /api.js - ::1
+[2026-07-09 09:07:38] info: GET /favicon.ico - ::1
+[2026-07-09 09:07:45] info: POST /api/auth/login - ::1
+[2026-07-09 09:07:46] info: User logged in: cbx (kalebmitiku55@gmail.com)
+[2026-07-09 09:07:46] info: GET / - ::1
+[2026-07-09 09:07:46] info: GET /style.css - ::1
+[2026-07-09 09:07:46] info: GET /icon.css - ::1
+[2026-07-09 09:07:46] info: GET /app.js - ::1
+[2026-07-09 09:07:46] info: GET /api.js - ::1
+[2026-07-09 09:07:46] info: GET /api/trades - ::1
+[2026-07-09 09:07:46] info: GET /api/trades/statistics - ::1
+[2026-07-09 09:07:46] info: GET /favicon.ico - ::1
+[2026-07-09 09:07:52] info: GET /login.html - ::1
+[2026-07-09 09:07:52] info: GET /style.css - ::1
+[2026-07-09 09:07:52] info: GET /icon.css - ::1
+[2026-07-09 09:07:52] info: GET /api.js - ::1
+[2026-07-09 09:07:52] info: GET /favicon.ico - ::1
+[2026-07-09 09:08:01] info: GET /register.html - ::1
+[2026-07-09 09:08:01] info: GET /style.css - ::1
+[2026-07-09 09:08:01] info: GET /icon.css - ::1
+[2026-07-09 09:08:01] info: GET /api.js - ::1
+[2026-07-09 09:08:01] info: GET /favicon.ico - ::1
