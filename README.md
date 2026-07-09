@@ -219,26 +219,38 @@ Open the `frontend` folder using **Live Server** in Visual Studio Code or any lo
 
 ---
 
-# 🗄️ Database
+## 🗄️ Database
 
-Database: PostgreSQL
+This application uses **PostgreSQL** as its relational database.
 
-Database schema:
+### Database Files
+
+```
+database/
+├── schema.sql
+└── er-diagram.png
+```
+
+### Database Tables
+
+- Users
+- Trades
+
+### Relationship
+
+- One User can have many Trades.
+
+The complete SQL DDL script is located in:
 
 ```
 database/schema.sql
 ```
 
-Main Tables
+The Entity Relationship Diagram (ERD) is located in:
 
-- Users
-- Trades
-
-Relationship
-
-- One User can have many Trades.
-
----
+```
+database/er-diagram.png
+```
 
 # 🌐 REST API
 
