@@ -1,0 +1,56 @@
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-style: normal;
+}
+.icon-dashboard::before { content: "📊"; }
+.icon-history::before { content: "📈"; }
+.icon-plus-circle::before { content: "➕"; }
+.icon-moon::before { content: "🌙"; }
+.icon-sun::before { content: "☀️"; }
+.icon-chart-line::before { content: "📊"; }
+.icon-wallet::before { content: "💰"; }
+.icon-trophy::before { content: "🏆"; }
+.icon-balance-scale::before { content: "⚖️"; }
+.icon-clock::before { content: "⏱️"; }
+.icon-fire::before { content: "🔥"; }
+.icon-shield-alt::before { content: "🛡️"; }
+.icon-brain::before { content: "🧠"; }
+.icon-filter::before { content: "🔍"; }
+.icon-table::before { content: "📋"; }
+.icon-file-pdf::before { content: "📄"; }
+.icon-database::before { content: "💾"; }
+.icon-upload::before { content: "📤"; }
+.icon-info-circle::before { content: "ℹ️"; }
+.icon-calendar::before { content: "📅"; }
+.icon-exchange-alt::before { content: "🔄"; }
+.icon-boxes::before { content: "📦"; }
+.icon-arrow-down::before { content: "⬇️"; }
+.icon-arrow-up::before { content: "⬆️"; }
+.icon-shield::before { content: "🛡️"; }
+.icon-bullseye::before { content: "🎯"; }
+.icon-receipt::before { content: "🧾"; }
+.icon-camera::before { content: "📷"; }
+.icon-cloud-upload-alt::before { content: "☁️"; }
+.icon-folder-open::before { content: "📁"; }
+.icon-sticky-note::before { content: "📝"; }
+.icon-chess::before { content: "♟️"; }
+.icon-smile::before { content: "😊"; }
+.icon-lightbulb::before { content: "💡"; }
+.icon-chart-bar::before { content: "📊"; }
+.icon-percentage::before { content: "%"; }
+.icon-exchange::before { content: "⇄"; }
+.icon-eye::before { content: "👁️"; }
+.icon-edit::before { content: "✏️"; }
+.icon-trash::before { content: "🗑️"; }
+.icon-check-circle::before { content: "✅"; }
+.icon-times::before { content: "✖️"; }
+.icon-chevron-left::before { content: "◀"; }
+.icon-chevron-right::before { content: "▶"; }
+.icon-spinner::before { content: "🌀"; }
+.icon-bars::before { content: "☰"; }
+.icon-arrow-left::before { content: "←"; }
+.icon-search::before { content: "🔍"; }
+.icon-sun::before { content: "☀️"; }
+.icon-moon::before { content: "🌙"; }
